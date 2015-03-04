@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <script>
+
+    var Light = (function() {
+      function Light(opt) {
+        this.content = opt.content
+        this.completed = opt.completed
+      }
+      Light.prototype.hello = function() {
+        console.log(this.content + 'が点灯しました');
+      }
+      Light.prototype.render = function() {
+        var _this = this;
+        var el = document.createElement('li');
+        var content = document.createElement('span');
+        var hello = document.createElement('button');
+        
+        content.textContent = this.content;
+        
+        hello.textContent = 'スイッチ';
+        hello.addEventListener('click', function() {
+          _this.hello();
+        });
+        
+        el.appendChild(content);
+        el.appendChild(hello);
+        
+        return el;
+      }
+      Light.prototype.turnOff = function() {
+			this.completed = false;
+      }
+
+      return Light;
+    })();
+    
+    var Lights = (function() {
+      function Lights(todos) {
+        this.todos = todos.map(function(todo) {
+          return new Light(todo);
+        })
+        console.log(this.todos);
+      }
+      Lights.prototype.hello = function() {
+        this.todos.forEach(function(todo) {
+          todo.hello();
+        });
+      }
+      
+      Lights.prototype.helloCompleted = function() {
+        this.todos.forEach(function(todo) {
+          if(todo.completed) {
+            todo.hello();
+          }
+        });
+      }
+      
+      Lights.prototype.allOff = function() {
+        this.todos.forEach(function(todo) {
+          todo.turnOff();
+        });
+      }
+
+      return Lights;
+    })();
+    
+    var LightsView = (function() {
+      function LightsView(opt) {
+        this.todos = opt.todos;
+      }
+      
+      LightsView.prototype.render = function() {
+
+        var wrapper = document.createElement('ul');
+
+        this.todos.forEach(function(todo) {
+          var el = todo.render()
+          wrapper.appendChild(el);
+        });
+        document.body.appendChild(wrapper);
+      }
+      
+      return LightsView;
+    })();
+    
+
+
+    function func1() {
+      var data1 = { content: "ライト1", completed: false };
+      var data2 = { content: "ライト2", completed: false };
+      var todo1 = new Light(data1);
+      var todo2 = new Light(data2);
+      todo1.hello();
+      todo2.hello();
+    }
+
+    function func2() {
+      var data = [
+        { content: "ライト0", completed: false },
+        { content: "ライト1", completed: true },
+        { content: "ライト2", completed: false },
+        { content: "ライト3", completed: true },
+      ];
+      var todos = new Lights(data);
+      var view = new LightsView(todos);
+      
+      view.render();
+    }
+    
+    //allOffを実行
+    function func3() {
+      //.allOff();
+    }
+
+    func2();
+
+
+    </script>
+  </body>
+</html>
