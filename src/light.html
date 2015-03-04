@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <script>
+
+    var Todo = (function() {
+      function Todo(opt) {
+        this.content = opt.content
+        this.completed = opt.completed
+      }
+      Todo.prototype.hello = function() {
+        console.log('Hello i am ' + this.content);
+      }
+      Todo.prototype.render = function() {
+        var _this = this;
+        var el = document.createElement('li');
+        var content = document.createElement('span');
+        var hello = document.createElement('button');
+        
+        content.textContent = this.content;
+        
+        hello.textContent = 'hello';
+        hello.addEventListener('click', function() {
+          _this.hello();
+        });
+        
+        el.appendChild(content);
+        el.appendChild(hello);
+        
+        return el;
+      }
+
+      return Todo;
+    })();
+    
+    var Todos = (function() {
+      function Todos(todos) {
+        this.todos = todos.map(function(todo) {
+          return new Todo(todo);
+        })
+        console.log(this.todos);
+      }
+      Todos.prototype.hello = function() {
+        this.todos.forEach(function(todo) {
+          todo.hello();
+        });
+      }
+      
+      Todos.prototype.helloCompleted = function() {
+        this.todos.forEach(function(todo) {
+          if(todo.completed) {
+            todo.hello();
+          }
+        });
+      }
+      
+      return Todos;
+    })();
+    
+    var TodosView = (function() {
+      function TodosView(opt) {
+        this.todos = opt.todos;
+      }
+      
+      TodosView.prototype.render = function() {
+
+        var wrapper = document.createElement('ul');
+
+
+        this.todos.forEach(function(todo) {
+          var el = todo.render()
+          wrapper.appendChild(el);
+        });
+        document.body.appendChild(wrapper);
+        //$("body").append(wrapper)
+      }
+
+
+      
+      return TodosView;
+    })();
+    
+    function func1() {
+      var data1 = { content: "hoge1", completed: false };
+      var data2 = { content: "hoge2", completed: false };
+      var todo1 = new Todo(data1);
+      var todo2 = new Todo(data2);
+      todo1.hello();
+      todo2.hello();
+    }
+
+    function func2() {
+      var data = [
+        { content: "hoge0", completed: false },
+        { content: "hoge1", completed: true },
+        { content: "hoge2", completed: false },
+        { content: "hoge3", completed: true },
+      ];
+      var todos = new Todos(data);
+      var view = new TodosView(todos);
+      
+      view.render();
+
+    }
+    
+    func2();
+
+
+    </script>
+  </body>
+</html>
