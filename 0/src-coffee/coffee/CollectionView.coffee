@@ -7,14 +7,14 @@ class CollectionView
 
 	_eventify: ->
 		@el.on('click:switch', (e, model) =>
-			_this.update(model.id)
+			@update(model.id)
 		)
 
 	render: ->
 		@views = [];
 		$frag = $(document.createDocumentFragment())
 
-		collection.models.forEach((model, index) =>
+		@collection.models.forEach((model, index) =>
 			@views.push(modelView)
 			$frag.append(modelView.el)
 		)

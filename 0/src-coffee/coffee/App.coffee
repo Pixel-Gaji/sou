@@ -4,4 +4,4 @@ class App
 		@view = new CollectionView(@collection)
 
 	mount: (selector) ->
-		$(selector).append @view.el
+		$(selector).append(@view.el)

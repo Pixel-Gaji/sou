@@ -21,7 +21,7 @@ CollectionView = (function() {
     var $frag, $off, $on;
     this.views = [];
     $frag = $(document.createDocumentFragment());
-    collection.models.forEach((function(_this) {
+    this.collection.models.forEach((function(_this) {
       return function(model, index) {
         _this.views.push(modelView);
         return $frag.append(modelView.el);
