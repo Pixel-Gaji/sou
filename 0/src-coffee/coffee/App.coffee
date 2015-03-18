@@ -1,8 +1,7 @@
-App ->
-	App(data) ->
-		@collection = new Collection(data);
-		@view = new CollectionView(this.collection);
+class App
+	constructor: (data) ->
+		@collection = new Collection (data)
+		@view = new CollectionView(@collection)
 
-	App.prototype.mount (selector) ->
-		$(selector).append(@view.el);
-
+	mount: (selector) ->
+		$(selector).append @view.el
