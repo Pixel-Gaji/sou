@@ -1,21 +1,20 @@
-Collection ->
-	Collection(data) ->
+class Colletion
+	constructor: ->
 		@data = data
 		@models = []
-		@_initilize()
-	
-	Collection.prototype._initilize ->
-		_this = this
-		
-		@data.forEach(src, index) ->
+		@_initilize
+
+	_initilize: ->
+		# _this = @
+		@data.forEach (src, index) =>
 			model = new Model src
 			model.id = index
-			@models.push model
+			@models.push(model)
 
-	Collection.prototype.allON ->
+	allON: ->
 		@models.forEach (model) ->
 			model.power = true
-	
-	Collection.prototype.allOFF ->
-		@models.forEach(model) ->
+
+	allOFF: ->
+		@models.forEach (model) ->
 			model.power = false
