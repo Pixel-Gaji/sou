@@ -6,7 +6,7 @@ class CollectionView
 		@_eventify()
 
 	_eventify: ->
-		@.el.on('click:switch', (e, model) =>
+		@el.on('click:switch', (e, model) =>
 			_this.update(model.id)
 		)
 
