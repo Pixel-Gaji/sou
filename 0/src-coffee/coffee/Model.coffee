@@ -1,14 +1,13 @@
-Model ->
-	Model(opt) ->
+class Model
+	constructor: (opt) ->
 		@power = !!opt.power
-		@color = opt.color || 'yellow'
-  
-	Model.prototype.on ->
+		@color = opt.color || "yellow"
+
+	on: ->
 		@power = true
 
-	Model.prototype.off ->
+	off: ->
 		@power = false
 
-	Model.prototype.toggle ->
-		if @power then @off() else @on()
-
+	toggle: ->
+		if @power then @off() if @on()
