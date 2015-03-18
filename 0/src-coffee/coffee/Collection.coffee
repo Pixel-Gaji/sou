@@ -2,7 +2,7 @@ class Colletion
 	constructor: ->
 		@data = data
 		@models = []
-		@_initilize
+		@_initilize()
 
 	_initilize: ->
 		# _this = @

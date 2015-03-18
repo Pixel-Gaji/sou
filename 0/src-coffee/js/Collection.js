@@ -5,7 +5,7 @@ Colletion = (function() {
   function Colletion() {
     this.data = data;
     this.models = [];
-    this._initilize;
+    this._initilize();
   }
 
   Colletion.prototype._initilize = function() {
