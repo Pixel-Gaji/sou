@@ -35,32 +35,26 @@
   $(function() {
     var schedules;
     schedules = new App.Schedules();
-    window.schedules = schedules;
+    $('.createForm').submit(function(e) {
+      var datetime, title;
+      e.preventDefault();
+      title = $('input[name="title"]').val();
+      datetime = $('input[name="datetime"]').val();
+      return schedules.add({
+        title: title,
+        datetime: moment(datetime)
+      }, {
+        validate: true
+      });
+    });
     schedules.on('add', function(model) {
-      var $p;
-      $p = $('<p>').html(model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title'));
-      return $('body').append($p);
+      var $li;
+      $('.count').html(schedules.length + '件の予定があります');
+      $li = $('<li>').html(model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title'));
+      return $('.list').append($li);
     });
-    schedules.on('invalid', function(model, message) {
-      return alert('Error: ' + message);
-    });
-    schedules.add({
-      title: '打ち合わせ',
-      datetime: moment('2013-10-26 15:00')
-    }, {
-      validate: true
-    });
-    schedules.add({
-      title: '勉強会',
-      datetime: moment('2013-10-27 20:00')
-    }, {
-      validate: true
-    });
-    return schedules.add({
-      title: 'ラーメン',
-      datetime: moment('2013-10-30 20:00')
-    }, {
-      validate: true
+    return schedules.on('invalid', function(model, message) {
+      return alert(message);
     });
   });
 
