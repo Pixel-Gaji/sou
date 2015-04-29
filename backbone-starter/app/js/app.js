@@ -1,5 +1,5 @@
 (function() {
-  var Schedule, Schedules;
+  var CreateFormView, Schedule, Schedules;
 
   Schedule = Backbone.Model.extend({
     defaults: {
@@ -23,8 +23,18 @@
   });
 
   Schedules = Backbone.Collection.extend({
-    model: Schedule
+    model: Schedule,
+    findByDate: function(date) {
+      var format, target;
+      format = 'YYYY-MM-DD';
+      target = moment(date).format(format);
+      return this.select(function(model) {
+        return model.dateFormat(format) === targetDate;
+      });
+    }
   });
+
+  CreateFormView = Backbone.View.extend;
 
   window.App = {};
 
@@ -46,6 +56,19 @@
       }, {
         validate: true
       });
+    });
+    $('.filterForm').submit(function(e) {
+      var date, results;
+      e.preventDefault();
+      date = $('input[name="filterDate"]').val();
+      results = schedules.findByDate(date);
+      $('.count').html(results.length + '件の予定があります');
+      $('.list').empty();
+      _.each(results, function(model) {
+        var $li;
+        return $li = $('<li>').html(model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title'));
+      });
+      return $('.list').append($li);
     });
     schedules.on('add', function(model) {
       var $li;

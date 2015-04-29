@@ -1,6 +1,6 @@
 window.App = {}
-window.App.Schedule = Schedule;
-window.App.Schedules = Schedules;
+window.App.Schedule = Schedule
+window.App.Schedules = Schedules
 
 # console.log Schedule
 
@@ -10,14 +10,35 @@ $ ->
 	$('.createForm').submit (e) ->
 		e.preventDefault()
 
-		title = $('input[name="title"]').val();
-		datetime = $('input[name="datetime"]').val();
+		title = $('input[name="title"]').val()
+		datetime = $('input[name="datetime"]').val()
 
 		schedules.add
 			title: title,
 			datetime: moment(datetime)
 		,
 			validate: true
+
+
+
+	$('.filterForm').submit (e) ->
+		e.preventDefault()
+
+		date = $('input[name="filterDate"]').val()
+		results = schedules.findByDate(date)
+
+		$('.count').html(results.length + '件の予定があります')
+		$('.list').empty()
+
+		_.each(results, (model) ->
+			$li = $('<li>').html(
+				model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title')
+			)
+		)
+		$('.list').append($li)
+
+
+
 
 	schedules.on 'add', (model) ->
 		$('.count').html(schedules.length + '件の予定があります')
@@ -28,8 +49,16 @@ $ ->
 
 		$('.list').append $li
 
+
+
 	schedules.on 'invalid', (model, message) ->
-		alert(message);
+		alert(message)
+
+
+
+
+
+
 
 # $ -> 
 #	schedule = new App.Schedule()
