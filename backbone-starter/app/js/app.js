@@ -34,7 +34,23 @@
     }
   });
 
-  CreateFormView = Backbone.View.extend;
+  CreateFormView = Backbone.View.extend({
+    events: {
+      'submit': 'onSubmit'
+    },
+    onSubmit: function(e) {
+      var datetime, title;
+      e.preventDefault;
+      title = this.$('input[name="title"]').val();
+      datetime = this.$('input[name="datetime"]').val();
+      return this.collection.add({
+        title: title,
+        datetime: moment(datetime)
+      }, {
+        validate: true
+      });
+    }
+  });
 
   window.App = {};
 
@@ -42,20 +58,14 @@
 
   window.App.Schedules = Schedules;
 
+  window.App.CreateFormView = CreateFormView;
+
   $(function() {
-    var schedules;
+    var createFormView, schedules;
     schedules = new App.Schedules();
-    $('.createForm').submit(function(e) {
-      var datetime, title;
-      e.preventDefault();
-      title = $('input[name="title"]').val();
-      datetime = $('input[name="datetime"]').val();
-      return schedules.add({
-        title: title,
-        datetime: moment(datetime)
-      }, {
-        validate: true
-      });
+    createFormView = new App.CreateFormView({
+      el: '.createForm',
+      collection: schedules
     });
     $('.filterForm').submit(function(e) {
       var date, results;

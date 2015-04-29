@@ -1,23 +1,30 @@
 window.App = {}
 window.App.Schedule = Schedule
 window.App.Schedules = Schedules
+window.App.CreateFormView = CreateFormView
 
 # console.log Schedule
 
 $ ->
 	schedules = new App.Schedules()
 
-	$('.createForm').submit (e) ->
-		e.preventDefault()
 
-		title = $('input[name="title"]').val()
-		datetime = $('input[name="datetime"]').val()
+	createFormView = new App.CreateFormView (
+		el: '.createForm',
+		collection: schedules
+	)
 
-		schedules.add
-			title: title,
-			datetime: moment(datetime)
-		,
-			validate: true
+	# $('.createForm').submit (e) ->
+	#	e.preventDefault()
+
+	#	title = $('input[name="title"]').val()
+	#	datetime = $('input[name="datetime"]').val()
+
+	#	schedules.add
+	#		title: title,
+	#		datetime: moment(datetime)
+	#	,
+	#		validate: true
 
 
 
@@ -46,8 +53,8 @@ $ ->
 		$li = $('<li>').html(
 			model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title')
 		)
-
 		$('.list').append $li
+
 
 
 
