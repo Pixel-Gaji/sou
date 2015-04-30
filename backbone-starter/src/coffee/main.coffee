@@ -20,10 +20,19 @@ $ ->
 		collection: schedules
 	)
 
+	$('.calendar-prevBtn').click ->
+		calendarView.toPrev()
+
+	$('.calendar-nextBtn').click ->
+		calendarView.toNext()
+
+	$('.calendar-todayBtn').click ->
+		calendarView.toToday()
 
 
-	schedules.on 'invalid', (model, message) ->
-		alert(message)
+
+	# schedules.on 'invalid', (model, message) ->
+	#	alert(message)
 
 
 

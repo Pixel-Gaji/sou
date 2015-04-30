@@ -54,23 +54,24 @@
 
   CalendarView = Backbone.View.extend({
     initialize: function() {
+      this.current = moment();
       return this.render();
     },
     render: function() {
-      var $caption, $tbody, $td, $tr, current, currentDay, endDay, i, results;
+      var $caption, $tbody, $td, $tr, currentDay, endDay, i, results;
       $caption = this.$('caption');
       $tbody = this.$('tbody');
-      current = moment();
-      currentDay = current.clone().startOf('month').startOf('week');
-      endDay = current.clone().endOf('month');
-      $caption.text(current.format('YYYY年MM月'));
+      currentDay = this.current.clone().startOf('month').startOf('week');
+      endDay = this.current.clone().endOf('month');
+      $tbody.empty();
+      $caption.text(this.current.format('YYYY年MM月'));
       results = [];
       while (currentDay <= endDay) {
         $tr = $('<tr>').appendTo($tbody);
         results.push((function() {
           var j, results1;
           results1 = [];
-          for (i = j = 0; j <= 6; i = ++j) {
+          for (i = j = 0; j < 7; i = ++j) {
             $td = $('<td>').text(currentDay.format('DD')).appendTo($tr);
             results1.push(currentDay.add(1, 'day'));
           }
@@ -78,6 +79,18 @@
         })());
       }
       return results;
+    },
+    toPrev: function() {
+      this.current.subtract(1, 'month');
+      return this.render();
+    },
+    toNext: function() {
+      this.current.add(1, 'month');
+      return this.render();
+    },
+    toToday: function() {
+      this.current = moment();
+      return this.render();
     }
   });
 
@@ -102,8 +115,14 @@
       el: '.calendar',
       collection: schedules
     });
-    return schedules.on('invalid', function(model, message) {
-      return alert(message);
+    $('.calendar-prevBtn').click(function() {
+      return calendarView.toPrev();
+    });
+    $('.calendar-nextBtn').click(function() {
+      return calendarView.toNext();
+    });
+    return $('.calendar-todayBtn').click(function() {
+      return calendarView.toToday();
     });
   });
 
