@@ -5,7 +5,8 @@ CreateFormView = Backbone.View.extend
 	)
 
 	onSubmit: (e) ->
-		e.preventDefault
+		e.preventDefault()
+		# debugger
 
 		title = @.$('input[name="title"]').val()
 		datetime = @.$('input[name="datetime"]').val()

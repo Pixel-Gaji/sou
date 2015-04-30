@@ -40,7 +40,7 @@
     },
     onSubmit: function(e) {
       var datetime, title;
-      e.preventDefault;
+      e.preventDefault();
       title = this.$('input[name="title"]').val();
       datetime = this.$('input[name="datetime"]').val();
       return this.collection.add({
