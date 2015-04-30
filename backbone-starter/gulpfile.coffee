@@ -2,6 +2,8 @@ gulp       = require "gulp"
 bs         = require "browser-sync"
 coffee     = require "gulp-coffee"
 concat     = require "gulp-concat"
+plumber    = require "gulp-plumber"
+notify     = require "gulp-notify"
 
 entryFile = "./src/coffee/main.coffee"
 
@@ -25,6 +27,7 @@ order = [
 # concatが不要ならconcatの行をコメントアウトする
 gulp.task "coffee", ->
   gulp.src order
+    .pipe plumber {errorHandler: notify.onError('<%= error.message %>')}
     .pipe concat name.js
     .pipe coffee bare: false
     .pipe gulp.dest dist.js
