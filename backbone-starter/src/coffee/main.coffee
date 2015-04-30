@@ -2,6 +2,7 @@ window.App = {}
 window.App.Schedule = Schedule
 window.App.Schedules = Schedules
 window.App.CreateFormView = CreateFormView
+window.App.CalendarView = CalendarView
 
 # console.log Schedule
 
@@ -14,47 +15,10 @@ $ ->
 		collection: schedules
 	)
 
-	# $('.createForm').submit (e) ->
-	#	e.preventDefault()
-
-	#	title = $('input[name="title"]').val()
-	#	datetime = $('input[name="datetime"]').val()
-
-	#	schedules.add
-	#		title: title,
-	#		datetime: moment(datetime)
-	#	,
-	#		validate: true
-
-
-
-	$('.filterForm').submit (e) ->
-		e.preventDefault()
-
-		date = $('input[name="filterDate"]').val()
-		results = schedules.findByDate(date)
-
-		$('.count').html(results.length + '件の予定があります')
-		$('.list').empty()
-
-		_.each(results, (model) ->
-			$li = $('<li>').html(
-				model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title')
-			)
-		)
-		$('.list').append($li)
-
-
-
-
-	schedules.on 'add', (model) ->
-		$('.count').html(schedules.length + '件の予定があります')
-
-		$li = $('<li>').html(
-			model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title')
-		)
-		$('.list').append $li
-
+	calendarView = new App.CalendarView (
+		el: '.calendar',
+		collection: schedules
+	)
 
 
 

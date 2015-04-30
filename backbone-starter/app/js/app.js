@@ -1,5 +1,5 @@
 (function() {
-  var CreateFormView, Schedule, Schedules;
+  var CalendarView, CreateFormView, Schedule, Schedules;
 
   Schedule = Backbone.Model.extend({
     defaults: {
@@ -52,6 +52,35 @@
     }
   });
 
+  CalendarView = Backbone.View.extend({
+    initialize: function() {
+      return this.render();
+    },
+    render: function() {
+      var $caption, $tbody, $td, $tr, current, currentDay, endDay, i, results;
+      $caption = this.$('caption');
+      $tbody = this.$('tbody');
+      current = moment();
+      currentDay = current.clone().startOf('month').startOf('week');
+      endDay = current.clone().endOf('month');
+      $caption.text(current.format('YYYY年MM月'));
+      results = [];
+      while (currentDay <= endDay) {
+        $tr = $('<tr>').appendTo($tbody);
+        results.push((function() {
+          var j, results1;
+          results1 = [];
+          for (i = j = 0; j <= 6; i = ++j) {
+            $td = $('<td>').text(currentDay.format('DD')).appendTo($tr);
+            results1.push(currentDay.add(1, 'day'));
+          }
+          return results1;
+        })());
+      }
+      return results;
+    }
+  });
+
   window.App = {};
 
   window.App.Schedule = Schedule;
@@ -60,31 +89,18 @@
 
   window.App.CreateFormView = CreateFormView;
 
+  window.App.CalendarView = CalendarView;
+
   $(function() {
-    var createFormView, schedules;
+    var calendarView, createFormView, schedules;
     schedules = new App.Schedules();
     createFormView = new App.CreateFormView({
       el: '.createForm',
       collection: schedules
     });
-    $('.filterForm').submit(function(e) {
-      var date, results;
-      e.preventDefault();
-      date = $('input[name="filterDate"]').val();
-      results = schedules.findByDate(date);
-      $('.count').html(results.length + '件の予定があります');
-      $('.list').empty();
-      _.each(results, function(model) {
-        var $li;
-        return $li = $('<li>').html(model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title'));
-      });
-      return $('.list').append($li);
-    });
-    schedules.on('add', function(model) {
-      var $li;
-      $('.count').html(schedules.length + '件の予定があります');
-      $li = $('<li>').html(model.dateFormat('MM月DD日 HH時mm分') + '：' + model.get('title'));
-      return $('.list').append($li);
+    calendarView = new App.CalendarView({
+      el: '.calendar',
+      collection: schedules
     });
     return schedules.on('invalid', function(model, message) {
       return alert(message);
