@@ -41,6 +41,7 @@ gulp.task "default", ->
       index: "index.html"
     notify: false
     host: "localhost"
+    browser: "Google Chrome"
   
   gulp.watch ["app/index.html"], bs.reload
   gulp.watch ["src/coffee/**/*.coffee"], ["coffee", bs.reload]
