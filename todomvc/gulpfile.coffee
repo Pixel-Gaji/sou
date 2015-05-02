@@ -36,14 +36,14 @@ gulp.task "coffee", ->
 gulp.task "default", ->
   bs.init
     server:
-      baseDir: ["app"]
+      baseDir: ["app", "bower_components"]
       directory: false
       index: "index.html"
     port: 4000
     notify: false
     host: "localhost"
     browser: "Google Chrome"
-  
+
   gulp.watch ["app/index.html"], bs.reload
   gulp.watch ["src/coffee/**/*.coffee"], ["coffee", bs.reload]
 
