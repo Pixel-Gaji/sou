@@ -1,1 +1,1 @@
-SouToDo.App.init()
+SouToDoApp.init()
