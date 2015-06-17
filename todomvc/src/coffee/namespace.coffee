@@ -3,8 +3,14 @@ SouToDoApp = {
 		console.log ("初期化完了")
 		# alert ("aaaa")
 
-		todos = new SouToDoApp.Models.TodoModel
-		console.log todos
+		# todo = new SouToDoApp.Models.TodoModel
+		# console.log todo
+
+		# todos = new SouToDoApp.Collections.TodosCollection([
+		#	{task: "taskName"}
+		#	{task: "taskName2"}
+		# ])
+		# console.log todos
 
 
 	Models: {}
