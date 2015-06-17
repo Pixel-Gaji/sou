@@ -12,6 +12,18 @@ SouToDoApp = {
 		# ])
 		# console.log todos
 
+		todo = new SouToDoApp.Models.TodoModel(
+			{task: "ごはん"}
+		)
+		# console.log todo
+
+
+		todoView = new SouToDoApp.Views.TodoView(
+			{model: todo}
+		)
+		console.log todoView
+		$("body").prepend(todoView.el)
+
 
 	Models: {}
 	Collections: {}
