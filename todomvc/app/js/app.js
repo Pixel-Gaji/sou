@@ -1,6 +1,4 @@
-(function( window ) {
-	'use strict';
+(function() {
 
-	// Your starting point. Enjoy the ride!
 
-})( window );
+}).call(this);
