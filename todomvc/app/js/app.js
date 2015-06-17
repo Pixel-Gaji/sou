@@ -12,7 +12,8 @@
         model: todo
       });
       console.log(todoView);
-      return $("body").prepend(todoView.el);
+      $("body").prepend(todoView.el);
+      return window.todoView = todoView;
     },
     Models: {},
     Collections: {},
@@ -33,7 +34,10 @@
     tagName: "p",
     initialize: function() {
       console.log(this.model.get("task"));
-      return this.render();
+      this.render();
+      return this.listenTo(this.model, "change", function() {
+        return this.render();
+      });
     },
     render: function() {
       return this.$el.text(this.model.get("task"));

@@ -6,6 +6,9 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 	initialize: ->
 		console.log @model.get "task"
 		@render()
+		@listenTo @model, "change", ->
+			@render()
+
 
 	render: ->
 		@$el.text @model.get "task"

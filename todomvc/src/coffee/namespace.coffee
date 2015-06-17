@@ -23,6 +23,7 @@ SouToDoApp = {
 		)
 		console.log todoView
 		$("body").prepend(todoView.el)
+		window.todoView = todoView
 
 
 	Models: {}
