@@ -13,7 +13,7 @@ SouToDoApp = {
 		# console.log todos
 
 		todo = new SouToDoApp.Models.TodoModel(
-			{task: "ごはん"}
+			{task: "タスク"}
 		)
 		# console.log todo
 

@@ -6,7 +6,7 @@
       var todo, todoView;
       console.log("初期化完了");
       todo = new SouToDoApp.Models.TodoModel({
-        task: "ごはん"
+        task: "タスク"
       });
       todoView = new SouToDoApp.Views.TodoView({
         model: todo
