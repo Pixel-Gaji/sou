@@ -1,14 +1,11 @@
 SouToDoApp.Views.TodoView = Backbone.View.extend
 
-	tagName: "p"
+	tagName: "li"
 
 
 	initialize: ->
-		console.log @model.get "task"
 		@render()
-		@listenTo @model, "change", ->
-			@render()
 
 
 	render: ->
-		@$el.text @model.get "task"
+		@$el.text @model.get("task")

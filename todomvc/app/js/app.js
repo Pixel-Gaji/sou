@@ -3,17 +3,19 @@
 
   SouToDoApp = {
     init: function() {
-      var todo, todoView;
-      console.log("初期化完了");
+      var inputView, todo, todosCollection, todosView;
+      todosCollection = new SouToDoApp.Collections.TodosCollection;
+      inputView = new SouToDoApp.Views.inputView({
+        collection: todosCollection
+      });
       todo = new SouToDoApp.Models.TodoModel({
         task: "タスク"
       });
-      todoView = new SouToDoApp.Views.TodoView({
-        model: todo
+      todosView = new SouToDoApp.Views.TodosView({
+        collection: todosCollection
       });
-      console.log(todoView);
-      $("body").prepend(todoView.el);
-      return window.todoView = todoView;
+      window.todoView = todoView;
+      return $("body").prepend(todoView.el);
     },
     Models: {},
     Collections: {},
@@ -30,17 +32,49 @@
     model: SouToDoApp.Models.TodoModel
   });
 
-  SouToDoApp.Views.TodoView = Backbone.View.extend({
-    tagName: "p",
-    initialize: function() {
-      console.log(this.model.get("task"));
-      this.render();
-      return this.listenTo(this.model, "change", function() {
-        return this.render();
+  SouToDoApp.Views.inputView = Backbone.View.extend({
+    el: "#inputForm",
+    events: {
+      "submit": "testSubmit"
+    },
+    initialize: function() {},
+    testSubmit: function(ev) {
+      var inputTask;
+      ev.preventDefault();
+      inputTask = this.$("#new-todo").val();
+      this.collection.add({
+        task: inputTask
       });
+      return console.log(this.collection);
+    }
+  });
+
+  SouToDoApp.Views.TodoView = Backbone.View.extend({
+    tagName: "li",
+    initialize: function() {
+      return this.render();
     },
     render: function() {
       return this.$el.text(this.model.get("task"));
+    }
+  });
+
+  SouToDoApp.Views.TodosView = Backbone.View.extend({
+    tagName: "ul",
+    initialize: function() {
+      this.render();
+      console.log(this.collection);
+      return this.listenTo(this.collection, "add", (function(_this) {
+        return function() {
+          return _this.render();
+        };
+      })(this));
+    },
+    render: function() {
+      var todoView;
+      return todoView = new SouToDoApp.Views.TodoView({
+        model: this.collection
+      });
     }
   });
 
