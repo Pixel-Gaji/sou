@@ -2,7 +2,7 @@ SouToDoApp.Views.inputView = Backbone.View.extend
 
 	el: "#inputForm"
 	events: 
-		"submit":"testSubmit"
+		"submit": "testSubmit"
 
 	initialize: ->
 		# console.log @el
@@ -12,10 +12,11 @@ SouToDoApp.Views.inputView = Backbone.View.extend
 
 	testSubmit: (ev) ->
 		ev.preventDefault()
-		inputTask = @$("#new-todo").val()
+		$input = @$("#new-todo")
+		inputTask = $input.val()
 		@collection.add(
 			task: inputTask
 		)
+		$input.val('')
 		# alert inputTask
-		console.log this.collection
 

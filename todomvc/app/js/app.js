@@ -3,19 +3,14 @@
 
   SouToDoApp = {
     init: function() {
-      var inputView, todo, todosCollection, todosView;
+      var inputView, todosCollection, todosView;
       todosCollection = new SouToDoApp.Collections.TodosCollection;
       inputView = new SouToDoApp.Views.inputView({
         collection: todosCollection
       });
-      todo = new SouToDoApp.Models.TodoModel({
-        task: "タスク"
-      });
-      todosView = new SouToDoApp.Views.TodosView({
+      return todosView = new SouToDoApp.Views.TodosView({
         collection: todosCollection
       });
-      window.todoView = todoView;
-      return $("body").prepend(todoView.el);
     },
     Models: {},
     Collections: {},
@@ -39,13 +34,14 @@
     },
     initialize: function() {},
     testSubmit: function(ev) {
-      var inputTask;
+      var $input, inputTask;
       ev.preventDefault();
-      inputTask = this.$("#new-todo").val();
+      $input = this.$("#new-todo");
+      inputTask = $input.val();
       this.collection.add({
         task: inputTask
       });
-      return console.log(this.collection);
+      return $input.val('');
     }
   });
 
@@ -62,19 +58,15 @@
   SouToDoApp.Views.TodosView = Backbone.View.extend({
     tagName: "ul",
     initialize: function() {
-      this.render();
-      console.log(this.collection);
-      return this.listenTo(this.collection, "add", (function(_this) {
-        return function() {
-          return _this.render();
-        };
-      })(this));
+      return this.listenTo(this.collection, "add", this.render);
     },
-    render: function() {
+    render: function(todo) {
       var todoView;
-      return todoView = new SouToDoApp.Views.TodoView({
-        model: this.collection
+      console.log(todo);
+      todoView = new SouToDoApp.Views.TodoView({
+        model: todo
       });
+      return $("#todo-list").prepend(todoView.el);
     }
   });
 

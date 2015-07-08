@@ -4,16 +4,13 @@ SouToDoApp.Views.TodosView = Backbone.View.extend
 
 
 	initialize: ->
-		@render()
-		console.log @collection
-		@listenTo @collection, "add", =>
-			@render()
-		# @listenTo @collection, "all", =>
-		# console.log arguments
+		@listenTo @collection, "add", @render
 
 
-	render: ->
+	render: (todo)->
+		console.log todo
 		todoView = new SouToDoApp.Views.TodoView(
-			model: @collection
+			model: todo
 		)
-		
+		# @$el.prepend(todoView.el)
+		$("#todo-list").prepend(todoView.el)
