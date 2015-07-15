@@ -25,4 +25,5 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 		@$el.html @template({taskName: @model.get("task")})
 
 	removeTask: ->
+		@model.destroy()
 
