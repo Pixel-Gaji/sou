@@ -17,12 +17,16 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 
 
 	initialize: ->
+		@listenTo @model, "destroy", @hideAnimation
 		@render()
 
 
 	render: ->
 		# @$el.text @model.get("task")
 		@$el.html @template({taskName: @model.get("task")})
+
+	hideAnimation: ->
+		@remove()
 
 	removeTask: ->
 		@model.destroy()
