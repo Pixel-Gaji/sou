@@ -2,6 +2,9 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 
 	tagName: "li"
 
+	events:
+		"click .destroy": "removeTask"
+
 
 	template: _.template """
 		<div class="view">
@@ -14,6 +17,7 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 
 
 	initialize: ->
+		@listenTo @model, "destroy", @hideAnimation
 		@render()
 
 
@@ -21,4 +25,11 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 		# @$el.text @model.get("task")
 		@$el.html @template({taskName: @model.get("task")})
 
+	hideAnimation: ->
+		@$el.fadeOut 500, =>
+			@remove()
+			alert ("削除完了")
+
+	removeTask: ->
+		@model.destroy()
 
