@@ -47,14 +47,29 @@
 
   SouToDoApp.Views.TodoView = Backbone.View.extend({
     tagName: "li",
+    events: {
+      "click .destroy": "removeTask"
+    },
     template: _.template("<div class=\"view\">\n	<input class=\"toggle\" type=\"checkbox\">\n	<label><%= taskName %></label>\n	<button class=\"destroy\"></button>\n</div>\n<input class=\"edit\" value=\"Create a TodoMVC template\">"),
     initialize: function() {
+      this.listenTo(this.model, "destroy", this.hideAnimation);
       return this.render();
     },
     render: function() {
       return this.$el.html(this.template({
         taskName: this.model.get("task")
       }));
+    },
+    hideAnimation: function() {
+      return this.$el.fadeOut(500, (function(_this) {
+        return function() {
+          _this.remove();
+          return alert("削除完了");
+        };
+      })(this));
+    },
+    removeTask: function() {
+      return this.model.destroy();
     }
   });
 
