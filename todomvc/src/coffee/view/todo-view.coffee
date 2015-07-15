@@ -26,7 +26,8 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 		@$el.html @template({taskName: @model.get("task")})
 
 	hideAnimation: ->
-		@remove()
+		@$el.fadeOut 500, =>
+			@remove()
 
 	removeTask: ->
 		@model.destroy()
