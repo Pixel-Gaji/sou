@@ -47,11 +47,14 @@
 
   SouToDoApp.Views.TodoView = Backbone.View.extend({
     tagName: "li",
+    template: _.template("<div class=\"view\">\n	<input class=\"toggle\" type=\"checkbox\">\n	<label><%= taskName %></label>\n	<button class=\"destroy\"></button>\n</div>\n<input class=\"edit\" value=\"Create a TodoMVC template\">"),
     initialize: function() {
       return this.render();
     },
     render: function() {
-      return this.$el.text(this.model.get("task"));
+      return this.$el.html(this.template({
+        taskName: this.model.get("task")
+      }));
     }
   });
 
@@ -62,7 +65,6 @@
     },
     render: function(todo) {
       var todoView;
-      console.log(todo);
       todoView = new SouToDoApp.Views.TodoView({
         model: todo
       });

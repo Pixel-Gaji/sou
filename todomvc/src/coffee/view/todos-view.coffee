@@ -8,7 +8,7 @@ SouToDoApp.Views.TodosView = Backbone.View.extend
 
 
 	render: (todo)->
-		console.log todo
+		# console.log todo
 		todoView = new SouToDoApp.Views.TodoView(
 			model: todo
 		)
