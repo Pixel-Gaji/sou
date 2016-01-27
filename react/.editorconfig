@@ -1,0 +1,13 @@
+root = true
+
+[*]
+indent_style = space
+
+[*.html]
+indent_size = 2
+
+[{*.js,*.json}]
+indent_size = 2
+
+[{*.css,*.styl,*.scss,*.less}]
+indent_size = 2
