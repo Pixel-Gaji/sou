@@ -19,4 +19,3 @@ SouToDoApp.Views.inputView = Backbone.View.extend
 		)
 		$input.val('')
 		# alert inputTask
-

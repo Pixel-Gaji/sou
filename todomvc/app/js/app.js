@@ -48,7 +48,8 @@
   SouToDoApp.Views.TodoView = Backbone.View.extend({
     tagName: "li",
     events: {
-      "click .destroy": "removeTask"
+      "click .destroy": "removeTask",
+      "change .toggle": "completeTask"
     },
     template: _.template("<div class=\"view\">\n	<input class=\"toggle\" type=\"checkbox\">\n	<label><%= taskName %></label>\n	<button class=\"destroy\"></button>\n</div>\n<input class=\"edit\" value=\"Create a TodoMVC template\">"),
     initialize: function() {
@@ -70,6 +71,9 @@
     },
     removeTask: function() {
       return this.model.destroy();
+    },
+    completeTask: function() {
+      return this.$el.find("label").css("text-decoration", "line-through");
     }
   });
 

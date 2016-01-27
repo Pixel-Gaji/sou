@@ -3,8 +3,8 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 	tagName: "li"
 
 	events:
-		"click .destroy": "removeTask"
-
+		"click .destroy": "removeTask",
+		"change .toggle": "completeTask"
 
 	template: _.template """
 		<div class="view">
@@ -14,7 +14,6 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 		</div>
 		<input class="edit" value="Create a TodoMVC template">
 	"""
-
 
 	initialize: ->
 		@listenTo @model, "destroy", @hideAnimation
@@ -33,3 +32,7 @@ SouToDoApp.Views.TodoView = Backbone.View.extend
 	removeTask: ->
 		@model.destroy()
 
+	completeTask: ->
+		@$el.find("label").css("text-decoration","line-through")
+#		alert ("チェック")
+#		console.log(@$el)
