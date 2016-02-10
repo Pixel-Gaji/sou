@@ -39,6 +39,7 @@ gulp.task "default", ->
       baseDir: ["app"]
       directory: false
       index: "index.html"
+    port: 4000
     notify: false
     host: "localhost"
     browser: "Google Chrome"
