@@ -15,13 +15,13 @@ dist =
   css: "./app/css/"
 
 order = [
+  entryFile
   "./src/coffee/namespace.coffee"
-  "./src/coffee/base/*.coffee"
+  # "./src/coffee/base/*.coffee"
   "./src/coffee/model/*.coffee"
   "./src/coffee/collection/*.coffee"
   "./src/coffee/view/*.coffee"
   "./src/coffee/controller/*.coffee"
-  entryFile
 ]
 
 # concatが不要ならconcatの行をコメントアウトする

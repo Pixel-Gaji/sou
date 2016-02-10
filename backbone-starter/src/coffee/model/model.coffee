@@ -1,4 +1,3 @@
-# console.log "test"
 Schedule = Backbone.Model.extend
 
 	defaults:
